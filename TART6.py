@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-################################################################################
+"""################################################################################
 ## Form generated from reading UI file 'TART6_UI_FINAL.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
+"""
 from PySide6.QtWidgets import (
     QApplication, QWidget, QPushButton, QLabel, QVBoxLayout, QFileDialog, 
     QListWidget, QLineEdit, QGraphicsView, QMenuBar, QMenu, QStatusBar, 
@@ -95,7 +95,9 @@ def get_logger(print_to_screen = False):
 
     return logger.initialize_logger(print_to_screen)
 
+
 class Ui_MainWindow(object):
+
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
@@ -178,9 +180,6 @@ class Ui_MainWindow(object):
         self.png_preview_label = QLabel(self.tab_2)
         self.png_preview_label.setObjectName(u"png_preview_label")
         self.png_preview_label.setGeometry(QRect(350, 110, 181, 16))
-       # self.asset_line_png_tab = QLineEdit(self.tab_2)
-       # self.asset_line_png_tab.setObjectName(u"asset_line_png_tab")
-       # self.asset_line_png_tab.setGeometry(QRect(100, 0, 571, 20))
         self.suffix_edit_2 = QLineEdit(self.tab_2)
         self.suffix_edit_2.setObjectName(u"suffix_edit_2")
         self.suffix_edit_2.setGeometry(QRect(220, 480, 113, 20))
@@ -191,17 +190,12 @@ class Ui_MainWindow(object):
         self.png_image_preview.setObjectName(u"png_image_preview")
         self.png_image_preview.setGeometry(QRect(350, 140, 351, 331))
         self.label = QLabel(self.tab_2)
-      #  self.label.setObjectName(u"label")
-      #  self.label.setGeometry(QRect(20, 0, 61, 20))
         self.asset_details_png_tab = QtWidgets.QListWidget(self.tab_2)
         self.asset_details_png_tab.setObjectName(u"asset_details_png_tab")
         self.asset_details_png_tab.setGeometry(QRect(5, 140, 261, 251))
         self.export_browse_png = QPushButton(self.tab_2)
         self.export_browse_png.setObjectName(u"export_browse_png")
         self.export_browse_png.setGeometry(QRect(700, 60, 91, 21))
-       # self.asset_browse_pngtab = QPushButton(self.tab_2)
-       # self.asset_browse_pngtab.setObjectName(u"asset_browse_pngtab")
-       # self.asset_browse_pngtab.setGeometry(QRect(700, 0, 91, 21))
         self.png_browse_label = QLabel(self.tab_2)
         self.png_browse_label.setObjectName(u"png_browse_label")
         self.png_browse_label.setGeometry(QRect(0, 30, 71, 20))
@@ -234,7 +228,9 @@ class Ui_MainWindow(object):
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
 
+
     def retranslateUi(self, MainWindow):
+
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Batch Material Instance Generator", None))
 #if QT_CONFIG(tooltip)
         MainWindow.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><br/></p></body></html>", None))
@@ -269,7 +265,6 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"Import Images as Textures", None))
     # retranslateUi
 
-
         #connect BATCH buttons to functions - TAB1
         self.asset_browse.clicked.connect(self.browse_asset_folder)
         self.material_browse.clicked.connect(self.browse_material_folder)
@@ -287,14 +282,14 @@ class Ui_MainWindow(object):
     def create_material_from_texture(self, texture_path, material_name, destination_path):
     
 
-            # Load the texture
+        # Load the texture
         texture_asset = unreal.EditorAssetLibrary.load_asset(texture_path)
         if not texture_asset:
              unreal.log_error(f"Failed to load texture: {texture_path}")
              logger.info(f"Failed to load texture: {texture_path}")
              return None
 
-    # Create a new material
+        # Create a new material
         asset_tools = unreal.AssetToolsHelpers.get_asset_tools()
         material_asset = asset_tools.create_asset(material_name, destination_path, unreal.Material, unreal.MaterialFactoryNew())
     
@@ -303,21 +298,21 @@ class Ui_MainWindow(object):
              logger.info(f"Failed to create material: {material_name}")
              return None
 
-    # Create a texture sample node
+        # Create a texture sample node
         texture_sample = unreal.MaterialEditingLibrary.create_material_expression(material_asset, unreal.MaterialExpressionTextureSample, -300, 0)
         texture_sample.texture = texture_asset
 
-    # Connect texture sample to base color of material
+        # Connect texture sample to base color of material
         unreal.MaterialEditingLibrary.connect_material_property(texture_sample, "RGB", unreal.MaterialProperty.MP_BASE_COLOR)
 
-    # Set material as two-sided (optional)
+        # Set material as two-sided (optional)
         material_asset.set_editor_property("two_sided", True)
 
-    # Update the material
+        # Update the material
         unreal.MaterialEditingLibrary.recompile_material(material_asset)
         unreal.MaterialEditingLibrary.update_material_instance(material_asset)
 
-    # Save the new material
+        # Save the new material
         unreal.EditorAssetLibrary.save_loaded_asset(material_asset)
 
         return material_asset
@@ -332,7 +327,7 @@ class Ui_MainWindow(object):
 
         parts = destination_path.split("Unreal Projects")
     
-         # If "Unreal Projects" is found in the path
+        # If "Unreal Projects" is found in the path
         if len(parts) > 1:
         # Return the part after "Unreal Projects", removing leading slash or backslash
             destination_path = parts[1].lstrip('/\\')
@@ -347,25 +342,20 @@ class Ui_MainWindow(object):
         failure_list = []
         file_paths = self.image_files
         logger.info("File paths:",file_paths)
-        for file_name in file_paths:#os.listdir(png_file_path):
+        for file_name in file_paths:
         
-#            for file_path in file_paths:
              asset_name = file_name
             
-        #copy asset to /game/ folder, keep it all local
+            #copy asset to /game/ folder, keep it all local
              logger.info("Temp copying over asset to game folder")
              import shutil
              shutil.copy(asset_name, "/Game/")
              logger.info("Copied")
-                  # Extract file name and extension
+            # Extract file name and extension
              base_name, extension = os.path.splitext(asset_name)
              asset_name = os.path.splitext(os.path.basename(file_name))[0]
              logger.info("Asset Name:", asset_name)
-
-
-             
-
-                # Construct custom texture name
+            # Construct custom texture name
              custom_name = f"{self.prefix_edit_2.text()}{asset_name}{self.suffix_edit_2.text()}"
              renamed_texture_path = f"/Game/{custom_name}{extension}"
 
@@ -378,7 +368,6 @@ class Ui_MainWindow(object):
                  failures += 1
                  failure_list.append(file_name)
              
-
              logger.info(f"Destination Path: ",destination_path)
              
             # Set up import task
@@ -389,31 +378,24 @@ class Ui_MainWindow(object):
              task.replace_existing = True
              task.save = True
              task.automated = True
-
-             
-    
+   
             # Execute the import task
              logger.info("Running task")
              unreal.AssetToolsHelpers.get_asset_tools().import_asset_tasks([task])
-
-            
+           
             # Get the imported texture asset
         
             # texture_asset_path = f"{destination_path}/{os.path.splitext(os.path.basename(png_file_path))[0]}"
              texture_asset_path = destination_path + "\\" + custom_name+extension
-             texture_asset_path = texture_asset_path.replace("\\", "/")
-        ###
-             
+             texture_asset_path = texture_asset_path.replace("\\", "/")            
              logger.info(f"Finding texture asset path:{texture_asset_path}")
              texture_asset = unreal.EditorAssetLibrary.find_asset_data(texture_asset_path).get_asset()
-             
-               
+                           
              if not texture_asset:
-                #logger.info(f"Failed to import texture: {texture_asset_path}")
                 pass
              else:
                  logger.info("found! Conversion complete on" + texture_asset_path)
-            # return
+
         unreal.log("Completed texture conversion - texture assets located in: "+destination_path)
         logger.info("Completed texture conversion - texture assets located in: "+destination_path)
 
@@ -424,27 +406,6 @@ class Ui_MainWindow(object):
                 logger.info("FAILED FILE: "+failure_path)
         
 
-    
-    def format_asset_name(self, name):
-    # Remove invalid characters and replace spaces with underscores
-        invalid_chars = '/.:?'
-        return ''.join(c if c not in invalid_chars else '_' for c in name).replace(' ', '_')
-
-
-    def format_folder_path(self, path):
-    # Ensure the path starts with /Game/ and doesn't contain invalid characters
-          unreal.log("path before changes (format folder path function):")
-          unreal.log(path)
-          path = self.convert_to_unreal_path(path)
-          if not path.startswith('/Game/'):
-               path = '/Game/' + path.lstrip('/')
-          unreal.log("Path after changes:")
-          unreal.log(path)
-          return '/'.join(self.format_asset_name(part) for part in path.split('/'))
-
-
-
-    #QFileDialog.getExistingDirectory(None, "Select Export Folder")
     def get_all_files(self, directory):
 
         all_files = []
@@ -489,6 +450,7 @@ class Ui_MainWindow(object):
                 scaled_pixmap = pixmap.scaled(self.png_image_preview.size(), QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
                 self.png_image_preview.setPixmap(scaled_pixmap)
                 self.asset_details_png_tab.setCurrentItem(self.asset_details_png_tab.item(0))
+
 
     def on_item_clicked(self, item):
         file_path = item.text()
@@ -559,24 +521,21 @@ class Ui_MainWindow(object):
             self.export_folder.setText(folder)
 
 
-
-
-    
     def apply_material_to_asset(self, asset, material):
         log = str(f"Applying {material} to {asset}")
         unreal.log(log)
         logger.info(log)
-    # Check if material is a string (path) or an object
+   
         # Check if material is a string (path) or an object
         if isinstance(material, str):
             material_asset = unreal.EditorAssetLibrary.load_asset(material)
         else:
             material_asset = material
 
-    # Check if asset is a string (path) or an object
+        # Check if asset is a string (path) or an object
         if isinstance(asset, str):
         # Convert the path to the correct Unreal Engine format
-            #asset_path = self.convert_to_unreal_path(asset)
+           
             asset_path = asset
             asset_object = unreal.EditorAssetLibrary.load_asset(asset_path)
         else:
@@ -592,14 +551,14 @@ class Ui_MainWindow(object):
             logger.info(f"Failed to load asset: {asset}")
             return
 
-    # Check if the asset is a StaticMesh
+        # Check if the asset is a StaticMesh
         if isinstance(asset_object, unreal.StaticMesh):
         # Get the number of material slots
              unreal.log("asset object:")
              unreal.log(asset_object)
              num_materials = asset_object.get_num_sections(0)  # Assuming LOD 0
 
-        # Apply the material to all slots
+             # Apply the material to all slots
              for i in range(num_materials):
                 asset_object.set_material(i, material_asset)
 
@@ -609,7 +568,7 @@ class Ui_MainWindow(object):
              unreal.log_error(f"Asset {asset_object.get_name()} is not a StaticMesh")
              logger.info(f"Asset {asset_object.get_name()} is not a StaticMesh")
 
-    # Save the modified asset
+        # Save the modified asset
         unreal.EditorAssetLibrary.save_loaded_asset(asset_object)    
         logger.info(f"Saved {asset_object}")        
 
@@ -622,11 +581,11 @@ class Ui_MainWindow(object):
             material_folder = self.material_folder.text().replace("\\", "/")
             export_folder = self.export_folder.text().replace("\\", "/")
 
-         # Convert to Unreal-relative paths and remove the .uasset extension
+            # Convert to Unreal-relative paths and remove the .uasset extension
             asset_path = self.convert_to_unreal_path(asset_path)
             asset_name = os.path.splitext(os.path.basename(asset_path))[0]
 
-    # Load all materials in the material folder
+            # Load all materials in the material folder
             for material_name in os.listdir(material_folder):
              material_path = os.path.join(material_folder, material_name).replace("\\", "/")
              material_path = self.convert_to_unreal_path(material_path)
