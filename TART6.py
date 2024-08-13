@@ -8,28 +8,24 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 """
 from PySide6.QtWidgets import (
-    QApplication, QWidget, QPushButton, QLabel, QVBoxLayout, QFileDialog, 
-    QListWidget, QLineEdit, QGraphicsView, QMenuBar, QMenu, QStatusBar, 
-    QMainWindow, QSizePolicy, QTabWidget, QListWidgetItem
+    QWidget, QPushButton, QLabel, QFileDialog, 
+    QListWidget, QLineEdit,  QStatusBar, 
+    QTabWidget, 
 )
 from PySide6.QtCore import (
-    QCoreApplication, QDate, QDateTime, QLocale, QMetaObject, QObject, 
-    QPoint, QRect, QSize, QTime, QUrl, Qt
+    QCoreApplication,  QMetaObject, QRect, 
 )
 from PySide6.QtGui import (
-    QBrush, QColor, QConicalGradient, QCursor, QFont, QFontDatabase, 
-    QGradient, QIcon, QImage, QKeySequence, QLinearGradient, QPainter, 
-    QPalette, QPixmap, QRadialGradient, QTransform
+    
+     QPixmap, QRadialGradient
 )
-from PySide6 import QtCore, QtGui, QtWidgets
+from PySide6 import QtCore, QtWidgets
 
 import os
 import unreal
-from PIL import Image
-from PIL.ImageQt import ImageQt  # Import ImageQt to convert PIL image to QPixmap
-from io import BytesIO
 import logging 
-os.path.expanduser("~\\Documents")
+
+
 def initialize_logger(print_to_screen = False):
     """
     Creates a logger
