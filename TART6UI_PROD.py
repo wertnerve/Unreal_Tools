@@ -261,6 +261,18 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"Import Images as Textures", None))
     # retranslateUi
 
+        #tooltips
+        self.create_instances_button.setToolTip("Apply all materials in material folder to selected static mesh")
+        self.create_instances_button_2.setToolTip("Import all images in selected image folder as Unreal textures to the selected export folder")
+        self.prefix_edit.setToolTip("Add a prefix to be put at the start of each static mesh instance")
+        self.suffix_edit.setToolTip("Add a suffix to be put at the end of each static mesh instance")
+        self.prefix_edit_2.setToolTip("Add a prefix to be put at the start of each imported texture")
+        self.suffix_edit_2.setToolTip("Add a suffix to be added at the end of each imported texture")
+        self.folder_items_list.setToolTip("This window shows all .uasset files in selected Material Folder with Material class")
+        self.asset_preview.setToolTip("This window shows information about the selected static mesh")
+        self.asset_details_png_tab.setToolTip("This window shows every image file from selected Images Folder. Click on a file to show preview")
+        
+
         #connect BATCH buttons to functions - TAB1
         self.asset_browse.clicked.connect(self.browse_asset_folder)
         self.material_browse.clicked.connect(self.browse_material_folder)
